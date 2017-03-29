@@ -1,13 +1,14 @@
 #include "ofApp.h"
 
-//--------------------------------------------------------------
+
 void ofApp::setup(){
 	ofHideCursor();
-	ofSetFrameRate( 5 );
-	ofBackground( 30 );
+	ofSetFrameRate( 30 );
+	ofBackground( 255, 255, 0 );
 	play = true;
 
-	fbo.allocate( 110, 190, GL_RGB );
+	fbo.allocate( 11 * SCALE, 19 * SCALE, GL_RGB );
+
 	fbo.begin();
 		ofSetColor( 255 );
 		ofClear( 255, 255, 255, 0 );
@@ -16,37 +17,35 @@ void ofApp::setup(){
 
 	serial.listDevices();
 	vector <ofSerialDeviceInfo> deviceList = serial.getDeviceList();
-	serial.setup();
+	serial.setup( 0, 115200 );
 	serial.flush();
 }
 
-//--------------------------------------------------------------
 void ofApp::update(){
-	if( play ) randomize();
+	updateFbo();
+	getPixels();
+	serialize();
 }
 
-//--------------------------------------------------------------
 void ofApp::draw(){
-	if ( play ) {
-		for( int i = 0; i < 19; i ++ ) {
-			for( unsigned int j = 0; j < 11; j ++ ) {
-				if( a[ i ][ j ] ) ofDrawRectangle( j * 10, i * 10, 10, 10 );
-			}
-		}
-
-		serialize();
-	}
+	img.draw( 0, 0 );
 }
 
-//--------------------------------------------------------------
-void ofApp::mousePressed(int x, int y, int button){
-	play = !play;
+void ofApp::updateFbo(){
+	fbo.begin();
+		ofBackground( 0 );
+		ofSetColor( 255 );
+		ofDrawRectangle( int(ofGetMouseX()/SCALE)*SCALE, int(ofGetMouseY() / SCALE )*SCALE, SCALE, SCALE );
+	fbo.end();
+
+	fbo.readToPixels( fboPixels );
+	img.setFromPixels( fboPixels );
 }
 
-void ofApp::randomize(){
+void ofApp::getPixels(){
 	for( unsigned int i = 0; i < 19; i ++ ) {
         for( unsigned int j = 0; j < 11; j ++ ) {
-            a[ i ][ j ] = ofRandom( 1 ) > .5;
+			a[ i ][ j ] = img.getColor( j * SCALE + SCALE / 2, i * SCALE + SCALE / 2 ).getBrightness() > 200;
         }
     }
 }
@@ -74,4 +73,8 @@ void ofApp::serialize() {
 	if ( serial.writeBytes( &buf[ 0 ], 210 ) != 210 ) {
 		ofLog() << "error sending... ";
 	}
+}
+
+void ofApp::mousePressed( int x, int y, int button ) {
+	play = !play;
 }
