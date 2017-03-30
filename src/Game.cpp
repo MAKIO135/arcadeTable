@@ -4,6 +4,11 @@ Game::Game(){
 }
 
 void Game::setup() {
+	pixels.allocate( WIDTH, HEIGHT, OF_PIXELS_RGB );
+	white.r = 255;
+	white.g = 255;
+	white.b = 255;
+
 	ballX = WIDTH / 2;
 	ballY = HEIGHT / 2;
 	vx = 1;
@@ -21,27 +26,24 @@ void Game::update(){
 	ballX += vx;
 	ballY += vy;
 
-	//player Collisions
-	/*
-	if ( ballY == 1 ) {
-		if ( ballX >= p1X - 1 && ballX <= p1X + 1 ) {
-			ballY = 3;
+	//before Collisions
+	if ( ballY == 2 ) {
+		if ( ballX + vx >= p1X - 1 && ballX + vx <= p1X + 1 ) {
 			vy = -vy;
-			if ( ballX == p1X - 1 ) vx = -1;
-			else if ( ballX == p1X ) vx = 0;
+			if ( ballX + vx == p1X - 1 ) vx = -1;
+			else if ( ballX + vx == p1X ) vx = 0;
 			else vx = 1;
 		}
 	}
-	if ( ballY == HEIGHT - 2 ){
-		if ( ballX >= p2X - 1 && ballX <= p2X + 1 ) {
-			ballY = HEIGHT - 3;
+
+	if ( ballY == HEIGHT - 3 ){
+		if ( ballX + vx >= p2X - 1 && ballX + vx <= p2X + 1 ) {
 			vy = -vy;
-			if ( ballX == p2X - 1 ) vx = -1;
-			else if ( ballX == p2X ) vx = 0;
+			if ( ballX + vx == p2X - 1 ) vx = -1;
+			else if ( ballX + vx == p2X ) vx = 0;
 			else vx = 1;
 		}
 	}
-	*/
 
 
 	// world collisions
@@ -54,14 +56,23 @@ void Game::update(){
 		ofClamp( ballY, 1, HEIGHT - 2 );
 		vy = -vy;
 	}
+
+	updatePixels();
 }
 
-void Game::draw(){
-	ofBackground( 0 );
-	ofSetColor( 255 );
-	ofFill();
-	ofDrawRectangle( ballX, ballY, 0, 1 );
+void Game::updatePixels(){
+	pixels.setColor( ofColor( 0, 0, 0 ) );
 
-	ofDrawRectangle( p1X - 1, 1, 3, 1 );
-	ofDrawRectangle( p2X - 1, HEIGHT - 2, 3, 1 );
+	// draw Ball
+	pixels.setColor( ballX, ballY, white );
+
+	// draw P1
+	for ( int x = p1X - 1; x < p1X + 2; x++ ) {
+		pixels.setColor( x, 1, white );
+	}
+
+	// draw P2
+	for ( int x = p2X - 1; x < p2X + 2; x++ ) {
+		pixels.setColor( x, HEIGHT - 2, white );
+	}
 }

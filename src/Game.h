@@ -4,15 +4,16 @@
 
 #define WIDTH 11
 #define HEIGHT 19
-#define SCALE 3
-
 class Game{
 	public:
 		Game();
 
 		void setup();
 		void update();
-		void draw();
+		void updatePixels();
+
+		ofPixels pixels;
+		ofColor white;
 
 		int ballX;
 		int ballY;
@@ -21,4 +22,3 @@ class Game{
 		int p1X;
 		int p2X;
 };
-
