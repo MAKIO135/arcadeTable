@@ -1,11 +1,12 @@
 #pragma once
 
 #include "ofMain.h"
+#include "Game.h"
 
-#define SCALE 20
+#define WIDTH 11
+#define HEIGHT 19
 
 class ofApp : public ofBaseApp{
-
 	public:
 		void setup();
 		void update();
@@ -13,14 +14,14 @@ class ofApp : public ofBaseApp{
 		void updateFbo();
 		void getPixels();
 		void serialize();
-		void mousePressed( int x, int y, int button );
 
 		ofFbo fbo;
 		ofPixels fboPixels;
-		ofImage img;
+		//ofImage img;
 
 		ofSerial serial;
 		bool a[ 19 ][ 11 ];
 		unsigned char buf[ 210 ];
-		bool play;
+
+		Game game;
 };

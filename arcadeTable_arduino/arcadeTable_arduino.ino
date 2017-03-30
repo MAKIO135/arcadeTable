@@ -3,6 +3,7 @@
 #define NUMPIXELS 209
 
 Adafruit_NeoPixel strip = Adafruit_NeoPixel( NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800 );
+unsigned char index = 0;
 
 void setup() {
   Serial.begin( 115200 );
@@ -12,10 +13,10 @@ void setup() {
 
 void loop() {
 }
-
-void serialEvent() {
+/*
+  void serialEvent() {
   static unsigned char index = 0;
-  
+
   if ( Serial.available() ) {
     char inChar = ( char ) Serial.read();
     while ( inChar != '|' ) {
@@ -40,5 +41,26 @@ void serialEvent() {
       }
     }
   }
-}
+  }
+*/
+void serialEvent() {
+  while ( Serial.available() ) {
+    char inChar = ( char ) Serial.read();
+    //Serial.print( inChar );
 
+    if ( inChar == '0' ) {
+      strip.setPixelColor( index, strip.Color( 0, 0, 0 ) );
+      index ++;
+    }
+    else if ( inChar == '1') {
+      strip.setPixelColor( index, strip.Color( 255, 255, 255 ) );
+      index ++;
+    }
+    else if ( inChar == '|' ) {
+      //Serial.print( index );
+      //Serial.print( '|' );
+      index = 0;
+      strip.show();
+    }
+  }
+}

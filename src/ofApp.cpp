@@ -1,13 +1,13 @@
 #include "ofApp.h"
 
-
 void ofApp::setup(){
 	ofHideCursor();
-	ofSetFrameRate( 30 );
+	ofSetFrameRate( 10 );
 	ofBackground( 255, 255, 0 );
-	play = true;
+	//ofSetWindowShape( 11*SCALE, 19*SCALE );
+	//ofSetWindowPosition( 10, 100 );
 
-	fbo.allocate( 11 * SCALE, 19 * SCALE, GL_RGB );
+	fbo.allocate( WIDTH , HEIGHT, GL_RGB );
 
 	fbo.begin();
 		ofSetColor( 255 );
@@ -19,33 +19,36 @@ void ofApp::setup(){
 	vector <ofSerialDeviceInfo> deviceList = serial.getDeviceList();
 	serial.setup( 0, 115200 );
 	serial.flush();
+
+	game.setup();
+
 }
 
 void ofApp::update(){
+	game.update();
 	updateFbo();
 	getPixels();
 	serialize();
 }
 
 void ofApp::draw(){
-	img.draw( 0, 0 );
+	fbo.draw( 0, 0 );
 }
 
 void ofApp::updateFbo(){
 	fbo.begin();
-		ofBackground( 0 );
-		ofSetColor( 255 );
-		ofDrawRectangle( int(ofGetMouseX()/SCALE)*SCALE, int(ofGetMouseY() / SCALE )*SCALE, SCALE, SCALE );
+		ofBackground( 255 );
+		//game.draw();
 	fbo.end();
 
 	fbo.readToPixels( fboPixels );
-	img.setFromPixels( fboPixels );
+	//img.setFromPixels( fboPixels );
 }
 
 void ofApp::getPixels(){
 	for( unsigned int i = 0; i < 19; i ++ ) {
         for( unsigned int j = 0; j < 11; j ++ ) {
-			a[ i ][ j ] = img.getColor( j * SCALE + SCALE / 2, i * SCALE + SCALE / 2 ).getBrightness() > 200;
+			a[ i ][ j ] = fboPixels.getColor( j, i ).r > 100;
         }
     }
 }
@@ -73,8 +76,4 @@ void ofApp::serialize() {
 	if ( serial.writeBytes( &buf[ 0 ], 210 ) != 210 ) {
 		ofLog() << "error sending... ";
 	}
-}
-
-void ofApp::mousePressed( int x, int y, int button ) {
-	play = !play;
 }
