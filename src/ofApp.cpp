@@ -4,17 +4,21 @@ void ofApp::setup(){
 	ofHideCursor();
 	ofSetFrameRate( 20 );
 
+	game.setup();
+
+#if SERIAL
 	serial.listDevices();
 	vector <ofSerialDeviceInfo> deviceList = serial.getDeviceList();
 	serial.setup( 0, 115200 );
 	serial.flush();
-
-	game.setup();
+#endif
 }
 
 void ofApp::update(){
 	game.update();
+#if SERIAL
 	serialize();
+#endif
 }
 
 void ofApp::draw(){
@@ -27,6 +31,7 @@ void ofApp::draw(){
 	}
 }
 
+#if SERIAL
 void ofApp::serialize() {
 	int index = 0;
 	for( int i = 18; i >= 0; i-- ){
@@ -51,3 +56,4 @@ void ofApp::serialize() {
 		ofLog() << "error sending... ";
 	}
 }
+#endif

@@ -3,6 +3,8 @@
 #include "ofMain.h"
 #include "Game.h"
 
+#define SERIAL false
+
 #define WIDTH 11
 #define HEIGHT 19
 
@@ -11,11 +13,12 @@ class ofApp : public ofBaseApp{
 		void setup();
 		void update();
 		void draw();
-		void getPixels();
-		void serialize();
-		
-		ofSerial serial;
-		unsigned char buf[ 210 ];
 
 		Game game;
+
+#if SERIAL
+		void serialize();
+		ofSerial serial;
+		unsigned char buf[ 210 ];
+#endif
 };

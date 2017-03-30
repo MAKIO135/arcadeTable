@@ -10,9 +10,12 @@ class Game{
 
 		void setup();
 		void update();
-		void updatePixels();
 
 		ofPixels pixels;
+
+	private:
+		void updatePixels();
+
 		ofColor white;
 
 		int ballX;

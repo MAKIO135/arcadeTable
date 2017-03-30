@@ -26,6 +26,7 @@ void Game::update(){
 	ballX += vx;
 	ballY += vy;
 
+	/*
 	//before Collisions
 	if ( ballY == 2 ) {
 		if ( ballX + vx >= p1X - 1 && ballX + vx <= p1X + 1 ) {
@@ -44,7 +45,7 @@ void Game::update(){
 			else vx = 1;
 		}
 	}
-
+	*/
 
 	// world collisions
 	if ( ballX < 0 || ballX > WIDTH - 1 ) {
