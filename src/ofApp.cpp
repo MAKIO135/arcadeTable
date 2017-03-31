@@ -2,11 +2,11 @@
 
 void ofApp::setup(){
 	ofHideCursor();
-	ofSetFrameRate( 20 );
+	ofSetFrameRate( 10 );
 
 	game.setup();
 
-#if SERIAL
+#ifdef USE_SERIAL
 	serial.listDevices();
 	vector <ofSerialDeviceInfo> deviceList = serial.getDeviceList();
 	serial.setup( 0, 115200 );
@@ -16,7 +16,7 @@ void ofApp::setup(){
 
 void ofApp::update(){
 	game.update();
-#if SERIAL
+#ifdef USE_SERIAL
 	serialize();
 #endif
 }
@@ -29,9 +29,14 @@ void ofApp::draw(){
 			ofDrawRectangle( j * 20, i * 20, 20, 20 );
 		}
 	}
+
+	if ( game.start ) {
+		game.start = false;
+		ofSleepMillis( 2000 );
+	}
 }
 
-#if SERIAL
+#ifdef USE_SERIAL
 void ofApp::serialize() {
 	int index = 0;
 	for( int i = 18; i >= 0; i-- ){
