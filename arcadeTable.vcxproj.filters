@@ -10,6 +10,21 @@
     <ClCompile Include="src\Game.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\Pong.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Snake.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tron.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tetris.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Shape.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -21,6 +36,21 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\Game.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Pong.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Snake.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tron.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tetris.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Shape.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

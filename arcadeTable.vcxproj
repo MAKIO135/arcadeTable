@@ -174,10 +174,20 @@
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ofApp.cpp" />
+    <ClCompile Include="src\Pong.cpp" />
+    <ClCompile Include="src\Shape.cpp" />
+    <ClCompile Include="src\Snake.cpp" />
+    <ClCompile Include="src\Tetris.cpp" />
+    <ClCompile Include="src\Tron.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\ofApp.h" />
+    <ClInclude Include="src\Pong.h" />
+    <ClInclude Include="src\Shape.h" />
+    <ClInclude Include="src\Snake.h" />
+    <ClInclude Include="src\Tetris.h" />
+    <ClInclude Include="src\Tron.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="$(OF_ROOT)\libs\openFrameworksCompiled\project\vs\openframeworksLib.vcxproj">
