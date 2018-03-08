@@ -30,7 +30,7 @@ void loop() {
             strip.setPixelColor( i, BLACK );
         }
 
-        int line = ( millis() / 600 ) % 19;
+        int line = ( millis() / 200 ) % 19;
         int startIndex = line * 11;
         for( int i = 0; i < 11; i ++ ) {
             strip.setPixelColor( i + startIndex, ORANGE );
