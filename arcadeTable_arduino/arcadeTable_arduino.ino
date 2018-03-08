@@ -2,65 +2,96 @@
 #define PIN 6
 #define NUMPIXELS 209
 
+#define BLACK strip.Color( 0, 0, 0 )
+#define WHITE strip.Color( 255, 255, 255 )
+#define RED strip.Color( 255, 0, 0 )
+#define GREEN strip.Color( 0, 255, 0 )
+#define BLUE strip.Color( 0, 0, 255 )
+#define YELLOW strip.Color( 255, 255, 0 )
+#define CYAN strip.Color( 0, 255, 255 )
+#define PURPLE strip.Color( 255, 0, 255 )
+#define ORANGE strip.Color( 255, 120, 0 )
+
 Adafruit_NeoPixel strip = Adafruit_NeoPixel( NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800 );
 unsigned char index = 0;
 
+bool boot = true;
+
 void setup() {
-  Serial.begin( 115200 );
-  strip.begin();
-  strip.show();
+    Serial.begin( 57600 );
+    strip.begin();
+    strip.show();
 }
 
 void loop() {
+    if( boot ) {
+        for( int i = 0; i < NUMPIXELS; i++ ) {
+            strip.setPixelColor( index, BLACK );
+        }
+        int line = ( millis() / 200 ) % 19;
+        int startIndex = line * 11;
+        for( int i = 0; i < 11; i ++ ) {
+            strip.setPixelColor( index, ORANGE );
+        }
+        strip.show();
+    }
 }
-/*
-  void serialEvent() {
-  static unsigned char index = 0;
 
-  if ( Serial.available() ) {
-    char inChar = ( char ) Serial.read();
-    while ( inChar != '|' ) {
-      if ( Serial.available() ) {
-        inChar = ( char ) Serial.read();
+void serialEvent() {
+    while ( Serial.available() ) {
+        boot = false;
+        char inChar = ( char ) Serial.read();
         //Serial.print( inChar );
 
-        if ( inChar == '0') {
-          strip.setPixelColor( index, strip.Color( 0, 0, 0 ) );
+        switch ( inChar ) {
+            case '0': // BLACK
+                strip.setPixelColor( index, BLACK );
+                break;
+            case '1': // WHITE
+                strip.setPixelColor( index, WHITE );
+                break;
+            case '2': // RED
+                strip.setPixelColor( index, RED );
+                break;
+            case '3': // GREEN
+                strip.setPixelColor( index, GREEN );
+                break;
+            case '4': // BLUE
+                strip.setPixelColor( index, BLUE );
+                break;
+            case '5': // YELLOW
+                strip.setPixelColor( index, YELLOW );
+                break;
+            case '6': // CYAN
+                strip.setPixelColor( index, CYAN );
+                break;
+            case '7': // PURPLE
+                strip.setPixelColor( index, PURPLE );
+                break;
+            case '8': // ORANGE
+                strip.setPixelColor( index, ORANGE );
+                break;
+            case '|':
+                strip.show();
+                break;
+        }
+
+        if ( inChar == '|' ) index = 0;
+        else index++;
+
+        if ( inChar == '0' ) {
+            strip.setPixelColor( index, strip.Color( 0, 0, 0 ) );
+            index++;
         }
         else if ( inChar == '1') {
-          strip.setPixelColor( index, strip.Color( 255, 255, 255 ) );
+            strip.setPixelColor( index, strip.Color( 255, 255, 255 ) );
+            index++;
         }
         else if ( inChar == '|' ) {
-          //Serial.print( index );
-          //Serial.print( '|' );
-          index = 0;
-          strip.show();
+            //Serial.print( index );
+            //Serial.print( '|' );
+            index = 0;
+            strip.show();
         }
-
-        index ++;
-      }
     }
-  }
-  }
-*/
-void serialEvent() {
-  while ( Serial.available() ) {
-    char inChar = ( char ) Serial.read();
-    //Serial.print( inChar );
-
-    if ( inChar == '0' ) {
-      strip.setPixelColor( index, strip.Color( 0, 0, 0 ) );
-      index ++;
-    }
-    else if ( inChar == '1') {
-      strip.setPixelColor( index, strip.Color( 255, 255, 255 ) );
-      index ++;
-    }
-    else if ( inChar == '|' ) {
-      //Serial.print( index );
-      //Serial.print( '|' );
-      index = 0;
-      strip.show();
-    }
-  }
 }
