@@ -1,4 +1,5 @@
 #include <Adafruit_NeoPixel.h>
+
 #define PIN 6
 #define NUMPIXELS 209
 
@@ -26,12 +27,13 @@ void setup() {
 void loop() {
     if( boot ) {
         for( int i = 0; i < NUMPIXELS; i++ ) {
-            strip.setPixelColor( index, BLACK );
+            strip.setPixelColor( i, BLACK );
         }
+
         int line = ( millis() / 200 ) % 19;
         int startIndex = line * 11;
         for( int i = 0; i < 11; i ++ ) {
-            strip.setPixelColor( index, ORANGE );
+            strip.setPixelColor( i + startIndex, ORANGE );
         }
         strip.show();
     }
@@ -78,20 +80,5 @@ void serialEvent() {
 
         if ( inChar == '|' ) index = 0;
         else index++;
-
-        if ( inChar == '0' ) {
-            strip.setPixelColor( index, strip.Color( 0, 0, 0 ) );
-            index++;
-        }
-        else if ( inChar == '1') {
-            strip.setPixelColor( index, strip.Color( 255, 255, 255 ) );
-            index++;
-        }
-        else if ( inChar == '|' ) {
-            //Serial.print( index );
-            //Serial.print( '|' );
-            index = 0;
-            strip.show();
-        }
     }
 }
