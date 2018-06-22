@@ -1,4 +1,4 @@
-# arcadeTable
+# makers-game-code
 
 Code for [makers-game](https://github.com/emlyon/makers-game)  
 ___
