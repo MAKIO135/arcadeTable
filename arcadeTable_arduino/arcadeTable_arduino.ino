@@ -30,10 +30,10 @@ void loop() {
             strip.setPixelColor( i, BLACK );
         }
 
-        int line = ( millis() / 200 ) % 19;
-        int startIndex = line * 11;
-        for( int i = 0; i < 11; i ++ ) {
-            strip.setPixelColor( i + startIndex, ORANGE );
+        int col = ( millis() / 100 ) % 11;
+        int startIndex = col * 19;
+        for( int i = 0; i < 19; i ++ ) {
+            strip.setPixelColor( i + startIndex, GREEN );
         }
         strip.show();
     }
@@ -41,7 +41,6 @@ void loop() {
 
 void serialEvent() {
     while ( Serial.available() ) {
-        boot = false;
         char inChar = ( char ) Serial.read();
         //Serial.print( inChar );
 
@@ -74,6 +73,7 @@ void serialEvent() {
                 strip.setPixelColor( index, ORANGE );
                 break;
             case '|':
+                boot = false;
                 strip.show();
                 break;
         }
