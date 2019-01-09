@@ -117,16 +117,16 @@ void ofApp::draw() {
 #ifdef USE_SERIAL
 void ofApp::serialize() {
 	int index = 0;
-	for ( int i = 18; i >= 0; i-- ) {
+	for ( int i = 0; i < 11; i++ ) {
 		if ( i % 2 == 0 ) {
-			for ( int j = 0; j < 11; j++ ) {
-				buf[ index ] = game->pixels[ j ][ i ];
+			for ( int j = 0; j < 19; j++ ) {
+				buf[ index ] = game->pixels[ i ][ 18 - j ];
 				index++;
 			}
 		}
 		else {
-			for ( int j = 10; j >= 0; j-- ) {
-				buf[ index ] = game->pixels[ j ][ i ];
+			for ( int j = 18; j >= 0; j-- ) {
+				buf[ index ] = game->pixels[ i ][ 18 - j ];
 				index++;
 			}
 		}
