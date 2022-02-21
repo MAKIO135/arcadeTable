@@ -53,6 +53,9 @@ void ofApp::update(){
 	string tmp = "";
 	for ( unsigned int i = 0; i < 10; i++ ) {
 		gpios[ i ].getval_gpio( tmp );
+        if ( tmp == "1") {
+            ofLog() << "Button index " + ofToString(i) + " (GPIO Pin : " + ofToString(gpios[i].get_gpionum()) + ") pressed";
+        }
 		if ( i == 4 || i == 9 ) {
 			if ( tmp == "1" ) initGame();
 		}

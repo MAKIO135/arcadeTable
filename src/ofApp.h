@@ -6,14 +6,14 @@
 
 #define GPIO_P1_UP "23"
 #define GPIO_P1_DOWN "24"
-#define GPIO_P1_LEFT "10"
-#define GPIO_P1_RIGHT "9"
+#define GPIO_P1_LEFT "9"
+#define GPIO_P1_RIGHT "10"
 #define GPIO_P1_A "11"
 
-#define GPIO_P2_UP "4"
+#define GPIO_P2_UP "26"
 #define GPIO_P2_DOWN "17"
-#define GPIO_P2_LEFT "18"
-#define GPIO_P2_RIGHT "27"
+#define GPIO_P2_LEFT "27"
+#define GPIO_P2_RIGHT "18"
 #define GPIO_P2_A "22"
 
 #define WIDTH 11
