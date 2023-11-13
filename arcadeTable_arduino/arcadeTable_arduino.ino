@@ -3,6 +3,9 @@
 #define PIN 6
 #define NUMPIXELS 209
 
+#define WIDTH 19
+#define HEIGHT 11
+
 #define BLACK strip.Color( 0, 0, 0 )
 #define WHITE strip.Color( 255, 255, 255 )
 #define RED strip.Color( 255, 0, 0 )
@@ -30,9 +33,9 @@ void loop() {
             strip.setPixelColor( i, BLACK );
         }
 
-        int line = ( millis() / 200 ) % 19;
-        int startIndex = line * 11;
-        for( int i = 0; i < 11; i ++ ) {
+        int line = ( millis() / 200 ) % WIDTH;
+        int startIndex = line * HEIGHT;
+        for( int i = 0; i < HEIGHT; i ++ ) {
             strip.setPixelColor( i + startIndex, ORANGE );
         }
         strip.show();
